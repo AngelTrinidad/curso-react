@@ -18,8 +18,8 @@ const Formulario = ({datosConsulta}) => {
 
     const consultarClima = e => {
         e.preventDefault();
+
         //pasar hacia el componente principal la busqueda
-        console.log(busqueda)
         datosConsulta(busqueda);
     }
 
@@ -49,8 +49,9 @@ const Formulario = ({datosConsulta}) => {
                     <option value="ES">Espanha</option>
                 </select>
             </div>
-            <div className="input-field col s12">
+            <div className="input-field col s12" onClick={() => document.getElementById('formSubmit').click()}>
                 <input 
+                    id="formSubmit"
                     type="submit" 
                     className="waves-effect waves-light btn-large btn-block yellow accent-4"
                     value="Buscar Clima"

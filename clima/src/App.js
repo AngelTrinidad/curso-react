@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './components/Header';
 import Formulario from './components/Formulario';
 import Error from './components/Error';
+import axios from 'axios';
+import Resultado from './components/Resultado';
 
 function App() {
 
@@ -9,25 +11,57 @@ function App() {
   //ciudad = state, guardarCiudad = setState
   const [ciudad, guardarCiudad] = useState('');
   const [pais, guardarPais] = useState('');
-  const [error, guardarError] = useState(false);
+  const [error, guardarError] = useState('');
+  const [resultado, guardarResultado] = useState({});
+
+  useEffect(() => {
+
+    //prevenir primera ejecucion
+    if(ciudad === '' || pais === '') return;
+
+    consultarAPI();
+
+  }, [ciudad, pais]);
 
   const datosConsulta = datos => {
+    guardarError(false);
     //Validacion
     if(datos.ciudad === '' || datos.pais === ''){
-      guardarError(true);
+      guardarError('Ambos campos son obligatorios');
     }
 
     guardarCiudad(datos.ciudad);
     guardarPais(datos.pais);
-    guardarError(false);
+    
+  }
+
+  const consultarAPI = async () => {
+    const appId = '8fd59dd4811dad5b3091e7ce01cc3b81';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
+    
+    try{
+      const res = await axios({
+        url,
+        method: 'GET'
+      });
+  
+      if(res.status === 200){
+        
+        guardarResultado(res.data);
+      }
+
+    }catch(err){
+      guardarError('La ciudad no existe en nuestro registros');
+    }
   }
 
   let componente;
-  console.log(error)
   if(error){
-    componente = <Error mensaje='Ambos campos son obligatorios'></Error>
+    componente = <Error mensaje={error}/>
+  }else if(resultado.cod === '404'){
+    componente = <Error mensaje={error}/>
   }else{
-    componente = null;
+    componente = <Resultado resultado={resultado}/>
   }
 
   return (
@@ -36,7 +70,7 @@ function App() {
       <div className="contenedor-form">
         <div className="container">
           <div className="row">
-            <div className="col s12 m6">
+            <div className="col s12 m6" >
               <Formulario
                 datosConsulta={datosConsulta}
               />
