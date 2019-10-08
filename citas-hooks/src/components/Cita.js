@@ -1,8 +1,7 @@
-import React from 'react';
-
-
+import React, {useState} from 'react';
 
 const Cita = ({cita, index, eliminarCita}) => {
+
     return (
         <div className="cita">
             <p>Mascota: <span>{cita.mascota}</span></p>
