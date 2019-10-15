@@ -1,9 +1,18 @@
 import React from 'react';
+import ProductoLista from './ProductoLista';
 
-const Productos = () => {
+const Productos = ({productos}) => {
     return (
         <div>
             <h1 className="text-center">Productos</h1>
+            <ul className="list-group mt-5">
+                {productos.map(e => (
+                    <ProductoLista 
+                        key={e.id}
+                        producto={e}
+                    />
+                ))}
+            </ul>
         </div>
     );
 };

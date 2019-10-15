@@ -1,0 +1,55 @@
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+.bg-boys {
+  background: #28B4DF;
+}
+
+.bg-girls {
+  background: #EC79D1;
+}
+
+.container-boys, .container-girls {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.full-container{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.row{
+  margin: 0 !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.width-zero {
+  width: 0px;
+  transition: 1s;
+}
+
+.animate-full-width {
+  width: 100%;
+  transition: 1s;
+}
+
+html, body {
+  height: 100%;
+}
